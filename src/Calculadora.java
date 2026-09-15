@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
+
 public class Calculadora extends JFrame {
     private JTextField txtOperacion;
     private JTextField txtResultado;
@@ -8,6 +9,21 @@ public class Calculadora extends JFrame {
     private void agregarTexto(String texto) {
         txtOperacion.setText(txtOperacion.getText() + texto);
     }
+    private void calcularResultado(boolean grados){
+        try {
+
+            String expresion = txtOperacion.getText();
+            // Reemplazamos el símbolo de Pi por su valor numérico real
+            expresion = expresion.replace("π", String.valueOf(Math.PI));
+            // Evaluamos la expresión matemática
+            double resultado = evaluarExpresion(expresion, grados);
+            // Mostramos el resultado en la pantalla inferior
+            txtResultado.setText(String.valueOf(resultado));
+        }
+        catch (Exception ex) {
+            txtResultado.setText("Error"); }
+    }
+
     public Calculadora() {
         setTitle("Calculadora");
         setSize(400, 500);
@@ -92,6 +108,8 @@ public class Calculadora extends JFrame {
 
         //Fila 9: Boton igual
         JButton btnIgual = new JButton("="); gbc.gridx = 2; gbc.gridy = 8; gbc.gridwidth = 2; add(btnIgual, gbc);
+        JButton btnParentesisDerecho = new JButton(")"); gbc.gridx = 1; gbc.gridy = 8; gbc.gridwidth = 1; add(btnParentesisDerecho, gbc);
+        JButton btnParentesisIzquierdo = new JButton("("); gbc.gridx = 0; gbc.gridy = 8; add(btnParentesisIzquierdo, gbc);
 
         // --- EVENTOS DE BOTONES NUMÉRICOS ---
         btn0.addActionListener(e -> agregarTexto("0"));
@@ -109,12 +127,18 @@ public class Calculadora extends JFrame {
         boton7.addActionListener(e -> agregarTexto("7"));
         boton8.addActionListener(e -> agregarTexto("8"));
         boton9.addActionListener(e -> agregarTexto("9"));
+        btnParentesisDerecho.addActionListener(e -> agregarTexto(")"));
+        btnParentesisIzquierdo.addActionListener(e -> agregarTexto("("));
 
         // Evento del botón C (Limpiar todo)
         botonC.addActionListener(e -> {
             txtOperacion.setText("");
             txtResultado.setText("0");
         });
+
+        //Botón igual
+        btnIgual.addActionListener(e -> calcularResultado(botonGrados.isSelected()));
+
     }
     public static void main(String[] args) {
         Calculadora calculadora = new Calculadora();
