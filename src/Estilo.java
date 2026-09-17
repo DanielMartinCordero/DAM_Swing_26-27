@@ -21,7 +21,6 @@ public class Estilo {
     public static final Color BORDE_PANTALLA = new Color(45, 46, 52);
 
     // Tipografías
-    // Tipografías
     public static final Font FUENTE_NUMEROS = new Font("SansSerif", Font.BOLD, 17);
     public static final Font FUENTE_FUNCIONES = new Font("SansSerif", Font.PLAIN, 14);
     public static final Font FUENTE_OPERACION = new Font("SansSerif", Font.PLAIN, 14);
