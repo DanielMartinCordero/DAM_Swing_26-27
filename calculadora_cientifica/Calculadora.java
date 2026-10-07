@@ -35,9 +35,9 @@ public class Calculadora extends JFrame {
 
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.BOTH; // <--- OBLIGATORIO: obliga a los componentes a rellenar la celda
+        gbc.fill = GridBagConstraints.BOTH; 
 
-        // --- PANTALLA LCD UNIFICADA (Fila 0) ---
+        // --- PANTALLA LCD UNIFICADA ---
         JPanel panelPantalla = new JPanel(new GridLayout(2, 1));
         panelPantalla.setBackground(Estilo.PANTALLA);
 
@@ -72,7 +72,7 @@ public class Calculadora extends JFrame {
         gbc.insets = new Insets(10, 10, 4, 10);
         add(panelPantalla, gbc);
 
-        // --- SELECTOR DE MODO (Fila 1) ---
+        // --- SELECTOR DE MODO ---
         JPanel panelModo = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 0));
         panelModo.setOpaque(false);
 
