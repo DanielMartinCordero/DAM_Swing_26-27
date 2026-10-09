@@ -4,7 +4,7 @@ public class GestorPartida {
     private String nombre;
     private double presupuesto;
     private final ArrayList<Jugador> plantilla;
-    private final Jugador[] titulares; // Tamaño 11 para el 4-3-3
+    private final Jugador[] titulares; // 11 posiciones para el 4-3-3
 
     public GestorPartida(String nombre, double presupuestoInicial) {
         this.nombre = nombre;
@@ -15,7 +15,7 @@ public class GestorPartida {
 
     public boolean fichar(Jugador jugador) {
         if (jugador.getValorMercado() > presupuesto) {
-            return false; // Fondos insuficientes
+            return false;
         }
         presupuesto -= jugador.getValorMercado();
         plantilla.add(jugador);
@@ -28,7 +28,7 @@ public class GestorPartida {
         }
     }
 
-    // Getters
     public double getPresupuesto() { return presupuesto; }
     public ArrayList<Jugador> getPlantilla() { return plantilla; }
+    public Jugador[] getTitulares() { return titulares; }
 }
