@@ -1,10 +1,4 @@
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
@@ -42,7 +36,7 @@ public class Ventana extends javax.swing.JFrame {
 
         // 1) Cargar la imagen
         try {
-            String urlTexto = "https://images.pexels.com/photos/33764946/pexels-photo-33764946.jpeg?cs=srgb&dl=pexels-ahmetyuksek-33764946.jpg&fm=jpg";
+            String urlTexto = "https://www.mactualidad.com/wp-content/uploads/2013/06/fondo-pantalla-mac-13.jpg";
             imagenOriginal = ImageIO.read(new URI(urlTexto).toURL());
         } catch (Exception e) {
             System.err.println("No se pudo cargar la URL: " + e.getMessage());
@@ -104,17 +98,32 @@ public class Ventana extends javax.swing.JFrame {
         pestañas.setPreferredSize(new Dimension(0, 0));
         panelSuperior.add(pestañas, celda(1, 0, 1, 1));
 
-        JSpinner spinner = new JSpinner(new SpinnerNumberModel(1, 1, 10, 1));
-        GridBagConstraints gs = celda(1, 1, 1, 1);
-        gs.weighty = 0;
-        gs.fill = GridBagConstraints.NONE;
-        panelSuperior.add(spinner, gs);
+
+        //FUNCIONALIDAD AÑADIDA: Mostrar u ocultar botones
+        JCheckBox chkBotones = new JCheckBox("Mostrar botones", true);
+        chkBotones.addActionListener(e -> {
+            scroll.setVisible(chkBotones.isSelected());
+            panelPrincipal.revalidate();
+        });
+        panelAjustes.add(chkBotones);
 
         // 4) PARTE INFERIOR: 40 botones con scroll
         JPanel contenido = new JPanel(new GridBagLayout());
         GridBagConstraints gbc2 = new GridBagConstraints();
         gbc2.fill = GridBagConstraints.NONE;
         gbc2.anchor = GridBagConstraints.CENTER;
+
+        //FUNCIONALIDAD AÑADIDA: Spinner funcional, modifica el diseño de los botones
+        JSpinner spinner = new JSpinner(new SpinnerNumberModel(2, 1, 6, 1));
+        spinner.addChangeListener(e -> {
+            int columnas = (int) spinner.getValue();
+            contenido.setLayout(new GridLayout(0, columnas, 5, 5)); //0 en filas = las que hagan falta
+            contenido.revalidate();
+            contenido.repaint();
+        });        GridBagConstraints gs = celda(1, 1, 1, 1);
+        gs.weighty = 0;
+        gs.fill = GridBagConstraints.NONE;
+        panelSuperior.add(spinner, gs);
 
         for (int i = 1; i <= 40; i++) {
             JButton boton = new JButton("Botón " + i);
