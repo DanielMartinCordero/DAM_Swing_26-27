@@ -63,6 +63,7 @@ public class Ventana extends javax.swing.JFrame {
         GridBagConstraints gb = celda(0, 1, 1, 1);
         gb.weighty = 0;
         gb.fill = GridBagConstraints.HORIZONTAL;
+        gb.insets = new Insets(5, 10, 5, 10);
         panelSuperior.add(miBoton, gb);
 
         JTabbedPane pestañas = new JTabbedPane();
@@ -110,7 +111,9 @@ public class Ventana extends javax.swing.JFrame {
         // 4) PARTE INFERIOR: 40 botones con scroll
         JPanel contenido = new JPanel(new GridBagLayout());
         GridBagConstraints gbc2 = new GridBagConstraints();
-        gbc2.fill = GridBagConstraints.NONE;
+        //NUEVO CAMBIO: Fill en horizontal y weightx para rellenar el espacio
+        gbc2.fill = GridBagConstraints.HORIZONTAL;
+        gbc2.weightx = 1;
         gbc2.anchor = GridBagConstraints.CENTER;
 
         //FUNCIONALIDAD AÑADIDA: Spinner funcional, modifica el diseño de los botones
@@ -120,9 +123,11 @@ public class Ventana extends javax.swing.JFrame {
             contenido.setLayout(new GridLayout(0, columnas, 5, 5)); //0 en filas = las que hagan falta
             contenido.revalidate();
             contenido.repaint();
-        });        GridBagConstraints gs = celda(1, 1, 1, 1);
+        });
+        GridBagConstraints gs = celda(1, 1, 1, 1);
         gs.weighty = 0;
         gs.fill = GridBagConstraints.NONE;
+        gs.anchor = GridBagConstraints.EAST;         // nuevo: pegado a la derecha
         panelSuperior.add(spinner, gs);
 
         for (int i = 1; i <= 40; i++) {
@@ -131,6 +136,7 @@ public class Ventana extends javax.swing.JFrame {
             boton.setMinimumSize(new Dimension(150, 35));
             gbc2.gridx = (i - 1) % 2;
             gbc2.gridy = (i - 1) / 2;
+            gbc2.insets = new Insets(3, 5, 3, 5);        // en el bucle de los 40 botones
             contenido.add(boton, gbc2);
         }
         scroll = new JScrollPane(contenido);
@@ -152,7 +158,6 @@ public class Ventana extends javax.swing.JFrame {
         panelPrincipal.add(panelSuperior, g);
 
         g.gridy = 1;
-        g.weighty = 0.5;
         panelPrincipal.add(scroll, g);
 
         add(panelPrincipal);
